@@ -1,0 +1,18 @@
+.navbar {
+  background-color: rgb(220, 227, 234);
+  padding: 10px 30px;
+  box-shadow: 0px 2px 5px rgb(176, 176, 176);
+}
+.link {
+  display: inline-block;
+  padding: 10px;
+  text-decoration: none;
+  font-size: 16px;
+  color: black;
+}
+
+.activeLink {
+  composes: link;
+  color: red;
+  font-weight: bold;
+}
