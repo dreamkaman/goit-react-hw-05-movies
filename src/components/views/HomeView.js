@@ -1,5 +1,18 @@
+import { useState, useEffect } from 'react';
+import List from '../List/List';
+import getTrend from '../../services/api';
+
 const HomeView = () => {
-  return <h2>This is home page!</h2>;
+  const [trend, setTrend] = useState(null);
+  // useEffect();
+  console.log(getTrend);
+
+  return (
+    <>
+      <h2>Trending today</h2>
+      <List />
+    </>
+  );
 };
 
 export default HomeView;
