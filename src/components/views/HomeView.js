@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import List from '../List/List';
+import List from '../List';
 import getTrend from '../../services/api';
 
 const HomeView = () => {
