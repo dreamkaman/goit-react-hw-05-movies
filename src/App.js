@@ -3,7 +3,8 @@ import { Switch, Route } from 'react-router-dom';
 import Navigation from './components/Navigation';
 import HomeView from './components/views/HomeView';
 import MoviesView from './components/views/MoviesView';
-import NotFoundView from './components/views/NotFoundPage';
+import NotFoundView from './components/views/NotFoundView';
+import MovieDetailsView from './components/views/MovieDetailsView';
 
 import './App.css';
 
@@ -15,8 +16,11 @@ function App() {
         <Route path="/" exact>
           <HomeView />
         </Route>
-        <Route path="/movies">
+        <Route exact path="/movies">
           <MoviesView />
+        </Route>
+        <Route path="/movies/:movieId">
+          <MovieDetailsView />
         </Route>
         <Route>
           <NotFoundView />

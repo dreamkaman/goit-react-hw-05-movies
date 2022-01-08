@@ -1,17 +1,41 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import List from '../List';
-import getPopular from '../../services/api';
+// import getPopular from '../../services/api';
+import moviesAPI from '../../services/api';
+
+// const elements = null;
 
 const HomeView = () => {
   const [trend, setTrend] = useState(null);
-  // useEffect();
-  // getTrend.then(responce => console.log(responce));
-  getPopular().then(responce => console.log(responce));
+
+  // console.dir(Link);
+
+  useEffect(() => {
+    moviesAPI.getPopular().then(responce => {
+      setTrend(responce.data.results);
+    });
+  }, []);
+
+  useEffect(() => {
+    if (trend) {
+      console.log(trend);
+    }
+  }, [trend]);
+
   return (
-    <>
+    <div>
       <h2>Trending today</h2>
-      <List />
-    </>
+      {trend && (
+        <List
+          elements={trend.map(item => (
+            <li key={item.id}>
+              <Link to={`/movies/${item.id}`}>{item.original_title}</Link>
+            </li>
+          ))}
+        />
+      )}
+    </div>
   );
 };
 

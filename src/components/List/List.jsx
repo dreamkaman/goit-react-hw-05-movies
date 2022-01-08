@@ -1,5 +1,5 @@
-const List = () => {
-  const elements = null;
+const List = ({ elements }) => {
+  // const elements = null;
   return <ul>{elements}</ul>;
 };
 
