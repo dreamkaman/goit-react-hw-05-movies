@@ -1,8 +1,9 @@
-import { useParams, Link } from 'react-router-dom';
+import { useParams, useRouteMatch, NavLink, Link, Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import moviesAPI from '../../services/api';
 
 function MovieDetailsView() {
+  const { url } = useRouteMatch();
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
   console.log(movieId);
@@ -12,7 +13,7 @@ function MovieDetailsView() {
       console.log(responce.data);
       setMovie(responce.data);
     });
-  }, []);
+  }, [movieId]);
 
   return (
     <>
@@ -39,15 +40,18 @@ function MovieDetailsView() {
             <p>Additional information</p>
             <ul>
               <li>
-                <Link>Cast</Link>
+                <NavLink to={`${url}/cast`}>Cast</NavLink>
               </li>
               <li>
-                <Link>Reviews</Link>
+                <NavLink to={`${url}/reviews`}>Reviews</NavLink>
               </li>
             </ul>
           </div>
         </div>
       )}
+      <Route path={`${url}/cast`}>
+        <Cast />
+      </Route>
     </>
   );
 }
