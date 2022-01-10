@@ -30,7 +30,7 @@ const HomeView = () => {
         <List
           elements={trend.map(item => (
             <li key={item.id}>
-              <Link to={`/movies/${item.id}`}>{item.original_title}</Link>
+              <Link to={`/movies/${item.id}`}>{item.title}</Link>
             </li>
           ))}
         />

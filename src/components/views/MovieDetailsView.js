@@ -1,6 +1,8 @@
 import { useParams, useRouteMatch, NavLink, Link, Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import moviesAPI from '../../services/api';
+import Cast from '../Cast';
+import Reviews from '../Reviews';
 
 function MovieDetailsView() {
   const { url } = useRouteMatch();
@@ -50,7 +52,10 @@ function MovieDetailsView() {
         </div>
       )}
       <Route path={`${url}/cast`}>
-        <Cast />
+        <Cast movieId={movie?.id} />
+      </Route>
+      <Route path={`${url}/reviews`}>
+        <Reviews movieId={movie?.id} />
       </Route>
     </>
   );
