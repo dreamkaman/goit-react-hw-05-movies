@@ -12,9 +12,14 @@ const HomeView = () => {
   // console.dir(Link);
 
   useEffect(() => {
-    moviesAPI.getPopular().then(responce => {
-      setTrend(responce.data.results);
-    });
+    moviesAPI
+      .getPopular()
+      .then(responce => {
+        setTrend(responce.data.results);
+      })
+      .catch(err => {
+        alert(`Something went wronge! The Error apear: "${err.message}" `);
+      });
   }, []);
 
   useEffect(() => {

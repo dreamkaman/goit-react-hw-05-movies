@@ -1,34 +1,53 @@
-import { useParams, useRouteMatch, NavLink, Link, Route } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useParams, useRouteMatch, NavLink, Route, useHistory } from 'react-router-dom';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import moviesAPI from '../../services/api';
-import Cast from '../Cast';
-import Reviews from '../Reviews';
+// import Cast from '../Cast';
+// import Reviews from '../Reviews';
+import image from '../../images/no-image-new.png';
+
+const Cast = lazy(() => import('../Cast/Cast.jsx' /* webpackChunkName: "cast-component"*/));
+const Reviews = lazy(() =>
+  import('../Reviews/Reviews.jsx' /* webpackChunkName: "reviews-component"*/),
+);
 
 function MovieDetailsView() {
   const { url } = useRouteMatch();
+  const history = useHistory();
+
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
-  console.log(movieId);
+  // console.log(movieId);
 
   useEffect(() => {
-    moviesAPI.getDetails(movieId).then(responce => {
-      console.log(responce.data);
-      setMovie(responce.data);
-    });
+    moviesAPI
+      .getDetails(movieId)
+      .then(responce => {
+        // console.log(responce.data);
+        setMovie(responce.data);
+      })
+      .catch(err => {
+        alert(`Something went wronge! The Error apear: "${err.message}" `);
+      });
   }, [movieId]);
 
   return (
     <>
-      <Link to="/">Go Back</Link>
+      <button type="button" onClick={() => history.goBack()}>
+        Go back
+      </button>
 
       {movie && (
         <div>
           <div>
-            <img
-              src={`https://www.themoviedb.org/t/p/original${movie.poster_path}`}
-              alt={'poster'}
-              width={'300px'}
-            />
+            {movie.poster_path ? (
+              <img
+                src={`https://www.themoviedb.org/t/p/original${movie.poster_path}`}
+                alt={'poster'}
+                width={'300px'}
+              />
+            ) : (
+              <img src={image} alt={'poster'} width={'300px'} />
+            )}
             <div>
               <h1>{movie.title}</h1>
               <p>{`User Score: ${movie.vote_average}`}</p>
@@ -51,12 +70,14 @@ function MovieDetailsView() {
           </div>
         </div>
       )}
-      <Route path={`${url}/cast`}>
-        <Cast movieId={movie?.id} />
-      </Route>
-      <Route path={`${url}/reviews`}>
-        <Reviews movieId={movie?.id} />
-      </Route>
+      <Suspense fallback={<p>...loading. Please, wait!</p>}>
+        <Route path={`${url}/cast`}>
+          <Cast movieId={movie?.id} />
+        </Route>
+        <Route path={`${url}/reviews`}>
+          <Reviews movieId={movie?.id} />
+        </Route>
+      </Suspense>
     </>
   );
 }
