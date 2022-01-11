@@ -1,0 +1,30 @@
+.navLink {
+  color: black;
+}
+
+.btnGoBack {
+  margin-left: 20px;
+  margin-top: 20px;
+}
+
+.activeNavLink {
+  color: red;
+  font-weight: bold;
+}
+
+.movieCard {
+  max-width: 900px;
+  padding: 20px;
+}
+
+.movieInfoWrapper {
+  display: flex;
+}
+
+.movieTextInfo {
+  padding: 20px;
+}
+
+.poster {
+  width: 300px;
+}

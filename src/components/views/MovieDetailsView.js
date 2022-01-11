@@ -1,9 +1,16 @@
-import { useParams, useRouteMatch, NavLink, Route, useHistory } from 'react-router-dom';
+import {
+  useParams,
+  useRouteMatch,
+  NavLink,
+  Route,
+  useHistory,
+  useLocation,
+} from 'react-router-dom';
 import { useState, useEffect, lazy, Suspense } from 'react';
 import moviesAPI from '../../services/api';
-// import Cast from '../Cast';
-// import Reviews from '../Reviews';
+
 import image from '../../images/no-image-new.png';
+import styles from './MovieDetailsView.module.css';
 
 const Cast = lazy(() => import('../Cast/Cast.jsx' /* webpackChunkName: "cast-component"*/));
 const Reviews = lazy(() =>
@@ -13,42 +20,46 @@ const Reviews = lazy(() =>
 function MovieDetailsView() {
   const { url } = useRouteMatch();
   const history = useHistory();
+  const location = useLocation();
 
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
-  // console.log(movieId);
 
   useEffect(() => {
     moviesAPI
       .getDetails(movieId)
       .then(responce => {
-        // console.log(responce.data);
         setMovie(responce.data);
       })
       .catch(err => {
-        alert(`Something went wronge! The Error apear: "${err.message}" `);
+        alert(`Something went wronge! The Error apears: "${err.message}" `);
       });
   }, [movieId]);
 
+  const onGoBack = () => {
+    history.push(location?.state?.from ?? '/');
+  };
+
   return (
     <>
-      <button type="button" onClick={() => history.goBack()}>
+      <button className={styles.btnGoBack} type="button" onClick={onGoBack}>
         Go back
       </button>
 
       {movie && (
-        <div>
-          <div>
+        <div className={styles.movieCard}>
+          <div className={styles.movieInfoWrapper}>
             {movie.poster_path ? (
               <img
+                className={styles.poster}
                 src={`https://www.themoviedb.org/t/p/original${movie.poster_path}`}
                 alt={'poster'}
                 width={'300px'}
               />
             ) : (
-              <img src={image} alt={'poster'} width={'300px'} />
+              <img className={styles.poster} src={image} alt={'poster'} width={'300px'} />
             )}
-            <div>
+            <div className={styles.movieTextInfo}>
               <h1>{movie.title}</h1>
               <p>{`User Score: ${movie.vote_average}`}</p>
               <h2>Overview</h2>
@@ -61,10 +72,22 @@ function MovieDetailsView() {
             <p>Additional information</p>
             <ul>
               <li>
-                <NavLink to={`${url}/cast`}>Cast</NavLink>
+                <NavLink
+                  className={styles.navLink}
+                  activeClassName={styles.activeNavLink}
+                  to={`${url}/cast`}
+                >
+                  Cast
+                </NavLink>
               </li>
               <li>
-                <NavLink to={`${url}/reviews`}>Reviews</NavLink>
+                <NavLink
+                  className={styles.navLink}
+                  activeClassName={styles.activeNavLink}
+                  to={`${url}/reviews`}
+                >
+                  Reviews
+                </NavLink>
               </li>
             </ul>
           </div>

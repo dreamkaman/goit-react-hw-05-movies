@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import moviesAPI from '../../services/api';
 
-import { styles } from './Reviews.module.css';
+import styles from './Reviews.module.css';
 
 function Reviews({ movieId }) {
   const [reviews, setReviews] = useState(null);
@@ -15,9 +15,9 @@ function Reviews({ movieId }) {
           setReviews(responce.data.results);
         })
         .catch(err => {
-          alert(`Something went wronge! The Error apear: "${err.message}" `);
+          alert(`Something went wronge! The Error apears: "${err.message}" `);
         }),
-    [],
+    [movieId],
   );
 
   return (
@@ -25,8 +25,8 @@ function Reviews({ movieId }) {
       {reviews?.length ? (
         <ul>
           {reviews.map(review => (
-            <li key={review.id}>
-              <p>Author: {review.author}</p>
+            <li className={styles.review} key={review.id}>
+              <p className={styles.author}>Author: {review.author}</p>
               <p>{review.content}</p>
             </li>
           ))}

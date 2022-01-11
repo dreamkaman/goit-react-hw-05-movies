@@ -1,13 +1,27 @@
 import PropTypes from 'prop-types';
-import { styles } from './List.module.css';
+import { Link, useLocation } from 'react-router-dom';
 
-const List = ({ elements }) => {
-  // const elements = null;
+import styles from './List.module.css';
+
+const List = ({ arr }) => {
+  const location = useLocation();
+
+  const elements = arr?.map(item => (
+    <li className={styles.list} key={item.id}>
+      <Link to={{ pathname: `/movies/${item.id}`, state: { from: location } }}>{item.title}</Link>
+    </li>
+  ));
+
   return <ul>{elements}</ul>;
 };
 
 export default List;
 
 List.propTypes = {
-  elements: PropTypes.array.isRequired,
+  arr: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      title: PropTypes.string,
+    }),
+  ).isRequired,
 };

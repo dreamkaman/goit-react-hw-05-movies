@@ -2,10 +2,6 @@ import { lazy, Suspense } from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import Navigation from './components/Navigation';
-// import HomeView from './components/views/HomeView';
-// import MoviesView from './components/views/MoviesView';
-// import NotFoundView from './components/views/NotFoundView';
-// import MovieDetailsView from './components/views/MovieDetailsView';
 
 import './App.css';
 

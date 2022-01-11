@@ -1,0 +1,28 @@
+.wrapperList {
+  display: flex;
+
+  align-items: center;
+
+  flex-wrap: wrap;
+}
+
+.list {
+  list-style: none;
+  background-color: rgb(224, 224, 224);
+  width: calc((100% - 40px) / 5);
+  margin: 5px;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+img {
+  width: 100%;
+}
+
+.actorName {
+  font-weight: bold;
+}
+
+.actorCharacter {
+  font-size: 12px;
+}

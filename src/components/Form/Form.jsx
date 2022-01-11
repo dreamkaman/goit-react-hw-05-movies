@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 
-import { styles } from './Form.module.css';
+import styles from './Form.module.css';
 
 function Form({ onSubmit }) {
   const [query, setQuery] = useState('');
@@ -15,7 +15,7 @@ function Form({ onSubmit }) {
     onSubmit(query);
   };
   return (
-    <form onSubmit={handleSubmit}>
+    <form className={styles.userForm} onSubmit={handleSubmit}>
       <input value={query} onChange={handleOnChange} />
       <button type="Submit">Search</button>
     </form>

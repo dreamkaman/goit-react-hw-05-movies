@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import moviesAPI from '../../services/api';
 import image from '../../images/no-image-new.png';
 
-import { styles } from './Cast.module.css';
+import styles from './Cast.module.css';
 
 const PATH = 'https://www.themoviedb.org/t/p/original';
 
@@ -14,7 +14,6 @@ function Cast({ movieId }) {
     moviesAPI
       .getCast(movieId)
       .then(responce => {
-        // console.log(responce.data);
         setActors(responce.data.cast);
       })
       .catch(err => alert(`Something went wronge! The Error apear: ${err} `));
@@ -23,16 +22,16 @@ function Cast({ movieId }) {
   return (
     <>
       {actors && (
-        <ul>
+        <ul className={styles.wrapperList}>
           {actors.map(actor => (
-            <li key={actor.credit_id}>
+            <li className={styles.list} key={actor.credit_id}>
               {actor.profile_path ? (
-                <img src={`${PATH}${actor.profile_path}`} alt={actor.name} width="150" />
+                <img src={`${PATH}${actor.profile_path}`} alt={actor.name} />
               ) : (
-                <img src={image} alt={actor.name} width="150" />
+                <img src={image} alt={actor.name} />
               )}
-              <p>{actor.name}</p>
-              <p>Character: {actor.character}</p>
+              <p className={styles.actorName}>{actor.name}</p>
+              <p className={styles.actorCharacter}>Character: {actor.character}</p>
             </li>
           ))}
         </ul>
