@@ -16,7 +16,7 @@ function Cast({ movieId }) {
       .then(responce => {
         setActors(responce.data.cast);
       })
-      .catch(err => alert(`Something went wronge! The Error apear: ${err} `));
+      .catch(err => alert(`Something went wronge! The Error apears: ${err} `));
   }, []);
 
   return (

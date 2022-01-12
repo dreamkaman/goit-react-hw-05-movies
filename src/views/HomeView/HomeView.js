@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import List from '../List';
+import List from '../../components/List';
 import moviesAPI from '../../services/api';
 
 const HomeView = () => {

@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 
 import moviesAPI from '../../services/api';
-import Form from '../Form';
-import List from '../List';
+import Form from '../../components/Form';
+import List from '../../components/List';
 
 const MoviesView = () => {
   const [movies, setMovies] = useState(null);

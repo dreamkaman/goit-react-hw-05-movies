@@ -12,9 +12,11 @@ import moviesAPI from '../../services/api';
 import image from '../../images/no-image-new.png';
 import styles from './MovieDetailsView.module.css';
 
-const Cast = lazy(() => import('../Cast/Cast.jsx' /* webpackChunkName: "cast-component"*/));
+const Cast = lazy(() =>
+  import('../../components/Cast/Cast.jsx' /* webpackChunkName: "cast-component"*/),
+);
 const Reviews = lazy(() =>
-  import('../Reviews/Reviews.jsx' /* webpackChunkName: "reviews-component"*/),
+  import('../../components/Reviews/Reviews.jsx' /* webpackChunkName: "reviews-component"*/),
 );
 
 function MovieDetailsView() {
@@ -24,6 +26,7 @@ function MovieDetailsView() {
 
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
+  console.log('Root history = ', history);
 
   useEffect(() => {
     moviesAPI
@@ -34,11 +37,14 @@ function MovieDetailsView() {
       .catch(err => {
         alert(`Something went wronge! The Error apears: "${err.message}" `);
       });
-  }, [movieId]);
+  }, []);
 
   const onGoBack = () => {
     history.push(location?.state?.from ?? '/');
+    console.log('onGoBack history = ', history);
   };
+
+  console.log('url', url);
 
   return (
     <>
@@ -54,10 +60,9 @@ function MovieDetailsView() {
                 className={styles.poster}
                 src={`https://www.themoviedb.org/t/p/original${movie.poster_path}`}
                 alt={'poster'}
-                width={'300px'}
               />
             ) : (
-              <img className={styles.poster} src={image} alt={'poster'} width={'300px'} />
+              <img className={styles.poster} src={image} alt={'poster'} />
             )}
             <div className={styles.movieTextInfo}>
               <h1>{movie.title}</h1>
@@ -75,7 +80,7 @@ function MovieDetailsView() {
                 <NavLink
                   className={styles.navLink}
                   activeClassName={styles.activeNavLink}
-                  to={`${url}/cast`}
+                  to={{ pathname: `${url}/cast`, state: { from: location.state.from } }}
                 >
                   Cast
                 </NavLink>
@@ -84,7 +89,7 @@ function MovieDetailsView() {
                 <NavLink
                   className={styles.navLink}
                   activeClassName={styles.activeNavLink}
-                  to={`${url}/reviews`}
+                  to={{ pathname: `${url}/reviews`, state: { from: location.state.from } }}
                 >
                   Reviews
                 </NavLink>
