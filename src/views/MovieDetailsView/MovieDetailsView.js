@@ -80,7 +80,7 @@ function MovieDetailsView() {
                 <NavLink
                   className={styles.navLink}
                   activeClassName={styles.activeNavLink}
-                  to={{ pathname: `${url}/cast`, state: { from: location.state.from } }}
+                  to={{ pathname: `${url}/cast`, state: { from: location?.state?.from } }}
                 >
                   Cast
                 </NavLink>
@@ -89,7 +89,7 @@ function MovieDetailsView() {
                 <NavLink
                   className={styles.navLink}
                   activeClassName={styles.activeNavLink}
-                  to={{ pathname: `${url}/reviews`, state: { from: location.state.from } }}
+                  to={{ pathname: `${url}/reviews`, state: { from: location?.state?.from } }}
                 >
                   Reviews
                 </NavLink>
